@@ -1,57 +1,38 @@
 port module Main exposing (..)
 
 import NativeUi
-import Model exposing (Model, initialModel)
-import Update exposing (update)
-import Message exposing (Msg(..))
-import View exposing (view)
-import NativeUi.AsyncStorage as AsyncStorage
-import Message exposing (..)
-import Task
-import Time exposing (Time, every, second)
-import FetchStops exposing (..)
-import App.Settings as Settings
+import NativeUi as Ui exposing (Node, Property)
+import NativeUi.Elements as Elements exposing (..)
 
+type alias Model = String
+type Msg = NoOp
 
-port deviceTokenChanged : (String -> msg) -> Sub msg
+init : ( Model, Cmd Msg) 
+init = 
+  ( "hello", Cmd.none )
 
+view : Model -> Node Msg
+view model = Elements.view [] (mainView model)
+
+mainView : Model -> List (Node Msg)
+mainView model = 
+  [ text [] [ Ui.string "Hello World!" ]
+  , text [] [ Ui.string "Hello World! Again~" ]
+  ]
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model = 
+  case msg of
+    NoOp -> ( model, Cmd.none )
 
 subscriptions : Model -> Sub Msg
-subscriptions _ =
-    Sub.batch
-        [ every (seconds 10) Tick
-        , deviceTokenChanged DeviceTokenChanged
-        ]
-
-
-loadSettings : Cmd Msg
-loadSettings =
-    AsyncStorage.multiGet Settings.allKeys
-        |> Task.map Settings.fromDict
-        |> Task.attempt ReceiveSettings
-
-
-init : ( Model, Cmd Msg )
-init =
-    ( initialModel
-    , Cmd.batch
-        [ loadSettings
-        , Task.perform Tick Time.now
-        , fetchStops
-        ]
-    )
-
+subscriptions model = Sub.none
 
 main : Program Never Model Msg
-main =
-    NativeUi.program
-        { init = init
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
-        }
-
-
-seconds : Float -> Time
-seconds magnitude =
-    magnitude * second
+main = 
+  NativeUi.program
+    { init = init
+    , view = view
+    , update = update
+    , subscriptions = subscriptions
+    }
