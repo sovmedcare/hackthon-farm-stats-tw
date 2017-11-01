@@ -1,0 +1,27 @@
+{
+  "name": "PurpleTrain",
+  "version": "0.0.1",
+  "private": true,
+  "license": "GPL-3.0",
+  "scripts": {
+    "watch": "chokidar '**/*.elm' 'app/**/*.js' -c 'elm make app/Main.elm --output elm.js' --initial",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.43.4",
+    "react-native-scrollable-tab-view": "https://github.com/iancanderson/react-native-scrollable-tab-view.git#ia-tabbar-style-prop"
+  },
+  "jest": {
+    "preset": "jest-react-native"
+  },
+  "devDependencies": {
+    "babel-jest": "18.0.0",
+    "babel-preset-react-native": "1.9.0",
+    "chokidar-cli": "^1.2.0",
+    "jest": "19.0.2",
+    "jest-react-native": "18.0.0",
+    "react-test-renderer": "16.0.0-alpha.6"
+  }
+}
