@@ -7,7 +7,7 @@ type alias Response =
     , page : Int
     , pages : Int
     }
-    
+
 type alias Info =
     { tradeDate : String
     , cropCode : String
@@ -18,7 +18,7 @@ type alias Info =
     , middlePrice : Float
     , lowPrice : Float
     , avgPrice : Float
-    , tradeCount : Int
+    , tradeCount : Float
     , updated : String
     , created : String
     }

@@ -43,7 +43,7 @@ decodePriceData =
         |> required "middlePrice" (Decode.float)
         |> required "lowPrice" (Decode.float)
         |> required "avgPrice" (Decode.float)
-        |> required "tradeCount" (Decode.int)
+        |> required "tradeCount" (Decode.float)
         |> required "updated" (Decode.string)
         |> required "created" (Decode.string)
 
