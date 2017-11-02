@@ -2,12 +2,12 @@ module Update exposing (..)
 
 import Http
 import Json.Decode as Decode
+import Json.Decode.Pipeline exposing (decode, required)
 import Model exposing (Model)
-import Message exposing (Msg(..))
-import Types exposing (..)
+import Message exposing (..)
+import Types exposing (Info)
+import Api exposing (baseUrl)
 
-api : String
-api = "https://jsonplaceholder.typicode.com/"
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model = 
@@ -15,20 +15,28 @@ update msg model =
         NoOp -> ( model, Cmd.none )
         ChangeSearchInput s -> ( { model | searchInput = s }, Cmd.none )
         ClickSearch -> ( model, sendRequest model.searchInput )
-        NewPostDate (Ok data) -> ( { model | data = data }, Cmd.none )
-        NewPostDate (Err _) -> ( model, Cmd.none )
+        NewInfoData (Ok data) -> ( { model | data = data }, Cmd.none )
+        NewInfoData (Err _) -> ( model, Cmd.none )
 
-getPostData : String -> Http.Request Post
-getPostData query =
-    Http.get (api ++ query) decodePostData
+getPriceData : String -> Http.Request Info
+getPriceData query =
+    Http.get (baseUrl ++ query) decodePriceData
 
-decodePostData: Decode.Decoder Post
-decodePostData = 
-    Decode.map4 Post
-        (Decode.field "userId" Decode.int)
-        (Decode.field "id" Decode.int)
-        (Decode.field "title" Decode.string)
-        (Decode.field "body" Decode.string)
+decodePriceData: Decode.Decoder Info
+decodePriceData = 
+    decode Info
+        |> required "tradeDate" (Decode.string)
+        |> required "cropCode" (Decode.string)
+        |> required "cropName" (Decode.string)
+        |> required "marketCode" (Decode.string)
+        |> required "marketName" (Decode.string)
+        |> required "highPrice" (Decode.int)
+        |> required "middlePrice" (Decode.int)
+        |> required "lowPrice" (Decode.int)
+        |> required "avgPrice" (Decode.int)
+        |> required "tradeCount" (Decode.int)
+        |> required "updated" (Decode.string)
+        |> required "created" (Decode.string)
 
 sendRequest: String -> Cmd Msg
-sendRequest query = Http.send NewPostDate (getPostData query)
+sendRequest query = Http.send NewInfoData (getPriceData query)
