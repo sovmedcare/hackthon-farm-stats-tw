@@ -3,6 +3,7 @@ module Web exposing (..)
 import Html exposing (Html, Attribute, h1, div, text, input, button, program)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput, onClick)
+<<<<<<< HEAD
 import Http
 import Json.Decode as Decode
 
@@ -35,6 +36,13 @@ init =
     ( { searchInput = "posts/3", data = Post 0 0 "" ""}
     , Cmd.none
     )
+=======
+
+import Model exposing (..)
+import Update exposing (..)
+import Message exposing (Msg(..))
+import Subscription exposing (..)
+>>>>>>> a248e179721184e1694bc82a0e0975617ef70567
 
 -- UPDATE
 
@@ -44,6 +52,7 @@ type Msg
     | ClickSearch
     | NewPostDate (Result Http.Error Post)
 
+<<<<<<< HEAD
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model = 
     case msg of
@@ -97,3 +106,12 @@ view model = div []
         ]
     ]
 
+=======
+main : Program Never Model Msg
+main = program
+    { init = init
+    , view = view
+    , update = update
+    , subscriptions = subscriptions
+    }
+>>>>>>> a248e179721184e1694bc82a0e0975617ef70567
