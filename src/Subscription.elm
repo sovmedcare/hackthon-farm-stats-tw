@@ -1,5 +1,4 @@
 module Subscription exposing (..)
-
 import Model exposing (..)
 import Message exposing (..)
 

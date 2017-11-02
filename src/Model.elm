@@ -1,10 +1,14 @@
-module Model exposing (..)
+module Model exposing (Model, init)
+import Message exposing (Msg)
+import Types exposing (..)
 
-import Message exposing (..)
-
-type alias Model = {
-    searchInput: String
-}
+type alias Model =
+    { searchInput : String
+    , data : Post
+    }
 
 init : ( Model, Cmd Msg ) 
-init = ( { searchInput = "a" } , Cmd.none )
+init = 
+    ( { searchInput = "posts/3", data = Post 0 0 "" ""}
+    , Cmd.none
+    )

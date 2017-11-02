@@ -1,6 +1,10 @@
 module Message exposing (..)
 
-type Msg =
-    NoOp |
-    ChangeSearchInput String | 
-    ClickSearch
+import Types exposing (..)
+import Http 
+
+type Msg
+    = NoOp
+    | ChangeSearchInput String
+    | ClickSearch
+    | NewPostDate (Result Http.Error Post)
