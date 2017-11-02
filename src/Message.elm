@@ -7,4 +7,4 @@ type Msg
     = NoOp
     | ChangeSearchInput String
     | ClickSearch
-    | NewPostDate (Result Http.Error Post)
+    | NewInfoData (Result Http.Error Info)
