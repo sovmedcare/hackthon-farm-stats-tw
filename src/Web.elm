@@ -1,45 +1,13 @@
 module Web exposing (..)
 
-import Html exposing (Html, Attribute, div, text, input, button, program)
+import Html exposing (Html, Attribute, h1, div, text, input, button, program)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput, onClick)
-import Http exposing (..)
+import Http
+import Json.Decode as Decode
 
-type alias Model = {
-    searchInput: String
-}
-
-type Msg = 
-    NoOp |
-    ChangeSearchInput String | 
-    ClickSearch
-
-fetchResult : String -> Cmd Msg
-fetchResult : qs =
-    let 
-        url = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" ++ qs
-        request = Http.get
-
-init : ( Model, Cmd Msg ) 
-init = 
-    ( { searchInput = "a" } , Cmd.none )
-
-view : Model -> Html Msg
-view model = div [] 
-    [ div [] [ text "果菜市價查詢" ]
-    , input [ placeholder "請輸入蔬果名", onInput ChangeSearchInput ] []
-    , button [ onClick ClickSearch ] [ text "搜索" ]
-    ]
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model = 
-    case msg of
-        NoOp -> ( model, Cmd.none )
-        ChangeSearchInput s -> ( { model | searchInput = s }, Cmd.none )
-        ClickSearch -> ( model, Cmd.none )
-
-subscriptions : Model -> Sub Msg
-subscriptions model = Sub.none
+api : String
+api = "https://jsonplaceholder.typicode.com/"
 
 main : Program Never Model Msg
 main = program
@@ -48,3 +16,84 @@ main = program
     , update = update
     , subscriptions = subscriptions
     }
+
+-- MODEL
+type alias Post =
+    { userId : Int
+    , id : Int
+    , title: String
+    , body: String
+    }
+
+type alias Model =
+    { searchInput : String
+    , data : Post
+    }
+
+init : ( Model, Cmd Msg ) 
+init = 
+    ( { searchInput = "posts/3", data = Post 0 0 "" ""}
+    , Cmd.none
+    )
+
+-- UPDATE
+
+type Msg
+    = NoOp
+    | ChangeSearchInput String
+    | ClickSearch
+    | NewPostDate (Result Http.Error Post)
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model = 
+    case msg of
+        NoOp -> ( model, Cmd.none )
+        ChangeSearchInput s -> ( { model | searchInput = s }, Cmd.none )
+        ClickSearch -> ( model, sendRequest model.searchInput )
+        NewPostDate (Ok data) -> ( { model | data = data }, Cmd.none )
+        NewPostDate (Err _) -> ( model, Cmd.none )
+
+getPostData : String -> Http.Request Post
+getPostData query =
+    Http.get (api ++ query) decodePostData
+
+decodePostData: Decode.Decoder Post
+decodePostData = 
+    Decode.map4 Post
+        (Decode.field "userId" Decode.int)
+        (Decode.field "id" Decode.int)
+        (Decode.field "title" Decode.string)
+        (Decode.field "body" Decode.string)
+
+sendRequest: String -> Cmd Msg
+sendRequest query = Http.send NewPostDate (getPostData query)
+
+-- SUBSCRIPTION
+subscriptions : Model -> Sub Msg
+subscriptions model = Sub.none
+
+-- VIEW
+view : Model -> Html Msg
+view model = div [] 
+    [ div [] [ text "果菜市價查詢" ]
+    , input [ placeholder "請輸入蔬果名", onInput ChangeSearchInput ] []
+    , button [ onClick ClickSearch ] [ text "搜索" ]
+    , div [] 
+        [ h1 []
+            [
+            text "title"
+            , div [] [text model.data.title]
+            ]
+        , h1 []
+            [
+            text "userId"
+            , div [] [text (toString model.data.userId)]
+            ]
+        , h1 []
+            [
+            text "body"
+            , div [] [text model.data.body]
+            ]
+        ]
+    ]
+
