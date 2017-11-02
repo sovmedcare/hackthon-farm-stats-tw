@@ -14,24 +14,20 @@ view model = div []
     [ div [] [ text "果菜市價查詢" ]
     , input [ placeholder "請輸入蔬果名", onInput ChangeSearchInput ] []
     , button [ onClick ClickSearch ] [ text "搜索" ]
-    , div [] 
-        [ h1 []
-            [
-            text "title"
-            , div [] [text model.data.title]
-            ]
-        , h1 []
-            [
-            text "userId"
-            , div [] [text (toString model.data.userId)]
-            ]
-        , h1 []
-            [
-            text "body"
-            , div [] [text model.data.body]
-            ]
+    , div [style [("width", "500px"), ("display", "flex"), ("flex-wrap", "wrap"), ("justify-content", "space-between")]]
+        [ row ["交易日期", "作物名稱", "市場名稱", "平均價"]
+        , row ["2017/11/01", "香蕉", "ＸＸＸ", "12.6"]
         ]
     ]
+
+row : List String -> Html Msg
+row titles =
+    div [style [("width", "100%"), ("display", "flex"), ("justify-content", "space-between")]]
+        (List.map (\title -> div [] [text title]) titles)
+
+-- listPrice : PriceData -> List (Html Msg)
+-- listPrice priceData =
+--     List.Map (\data)
 
 main : Program Never Model Msg
 main = program

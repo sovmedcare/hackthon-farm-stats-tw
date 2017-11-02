@@ -7,4 +7,4 @@ type Msg
     = NoOp
     | ChangeSearchInput String
     | ClickSearch
-    | FetchData (Result Http.Error Trade)
+    | NewPriceData (Result Http.Error Response)

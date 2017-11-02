@@ -42,5 +42,4 @@ android/keystores/debug.keystore
 android/app/*.keystore
 
 elm.js
-elm-stuff/build-artifacts
-elm-stuff/packages/ohanhi
+elm-stuff/*
