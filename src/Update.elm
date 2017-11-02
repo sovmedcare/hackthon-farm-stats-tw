@@ -5,7 +5,7 @@ import Json.Decode as Decode
 import Json.Decode.Pipeline exposing (decode, required)
 import Model exposing (Model)
 import Message exposing (..)
-import Types exposing (Info)
+import Types exposing (Info, PriceData, Response)
 import Api exposing (baseUrl)
 
 
@@ -15,16 +15,16 @@ update msg model =
         NoOp -> ( model, Cmd.none )
         ChangeSearchInput s -> ( { model | searchInput = s }, Cmd.none )
         ClickSearch -> ( model, sendRequest model.searchInput )
-        NewInfoData (Ok data) -> ( { model | data = data }, Cmd.none )
-        NewInfoData (Err _) -> ( model, Cmd.none )
+        NewPriceData (Ok data) -> ( { model | data = data.docs }, Cmd.none )
+        NewPriceData (Err _) -> ( model, Cmd.none )
 
-getPriceData : String -> Http.Request Info
+getPriceData : String -> Http.Request Response
 getPriceData query =
-    Http.get (baseUrl ++ query) decodePriceData
+    Http.get (baseUrl ++ "cropName=" ++ query) decodePriceData
 
-decodePriceData: Decode.Decoder Info
+decodePriceData: Decode.Decoder Response
 decodePriceData = 
-    decode Info
+    decode Response
         |> required "tradeDate" (Decode.string)
         |> required "cropCode" (Decode.string)
         |> required "cropName" (Decode.string)
@@ -39,4 +39,4 @@ decodePriceData =
         |> required "created" (Decode.string)
 
 sendRequest: String -> Cmd Msg
-sendRequest query = Http.send NewInfoData (getPriceData query)
+sendRequest query = Http.send NewPriceData (getPriceData query)
