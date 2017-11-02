@@ -4,11 +4,11 @@ import Types exposing (..)
 
 type alias Model =
     { searchInput : String
-    , data : Post
+    , data : List Trade
     }
 
 init : ( Model, Cmd Msg ) 
 init = 
-    ( { searchInput = "posts/3", data = Post 0 0 "" ""}
+    ( { searchInput = "posts/3", data = [] }
     , Cmd.none
     )

@@ -100,8 +100,8 @@ onMouseOut msg =
 events for things like text fields or text areas.
 
 It grabs the **string** value at `event.target.value`, so it will not work if
-need some other type of information. For example, if you want to track inputs
-on a range slider, make a custom handler with [`on`](#on).
+you need some other type of information. For example, if you want to track 
+inputs on a range slider, make a custom handler with [`on`](#on).
 
 For more details on how `onInput` works, check out [targetValue](#targetValue).
 -}
