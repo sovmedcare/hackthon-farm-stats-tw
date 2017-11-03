@@ -7,8 +7,7 @@ import Model exposing (..)
 import Update exposing (..)
 import Message exposing (Msg(..))
 import Subscription exposing (..)
-import Date.Format exposing (format)
-import Date
+import Types exposing (..)
 -- VIEW
 view : Model -> Html Msg
 view model = div [] 
@@ -17,14 +16,7 @@ view model = div []
         , button [ onClick ClickSearch ] [ text "搜索" ]
         , div [ style [( "width", "800px" ), ( "display", "flex" ), ( "flex-wrap", "wrap" )]]
             [ row [ "交易日期", "作物名稱", "市場名稱", "平均價" ]
-            , div [] 
-                ( List.map (\info -> 
-                    let date =
-                        case Date.fromString info.tradeDate of
-                            Ok d -> format "%Y%m%d" d
-                            Err e -> ""
-                    in
-                    row [date, info.cropName, info.marketName, toString (round (info.avgPrice * 0.6))]) model.data )
+            , div [] (content model.data)
             ]
         ]
 
@@ -33,9 +25,16 @@ row titles =
     div [style [("width", "800px"), ("display", "flex")]]
         (List.map (\title -> div [style [("flex", "1")]] [text title]) titles)
 
--- listPrice : PriceData -> List (Html Msg)
--- listPrice priceData =
---     List.Map (\data)
+content : PriceData -> List (Html Msg)
+content priceData = 
+    if (List.length priceData) == 0 then
+        (List.singleton empty)
+    else
+        List.map (\info -> row [info.tradeDate, info.cropName, info.marketName, toString (round (info.avgPrice * 0.6))]) priceData
+
+empty : Html Msg
+empty = div [] [text "查無資料"]
+
 
 main : Program Never Model Msg
 main = program

@@ -7,7 +7,8 @@ import Model exposing (Model)
 import Message exposing (..)
 import Types exposing (Info, PriceData, Response)
 import Api exposing (baseUrl)
-
+import Date.Format exposing (format)
+import Date
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model = 
@@ -34,7 +35,7 @@ decodeResponse =
 decodePriceData : Decode.Decoder Info
 decodePriceData = 
     decode Info
-        |> required "tradeDate" (Decode.string)
+        |> required "tradeDate" (Decode.map parseDate Decode.string)
         |> required "cropCode" (Decode.string)
         |> required "cropName" (Decode.string)
         |> required "marketCode" (Decode.string)
@@ -46,6 +47,14 @@ decodePriceData =
         |> required "tradeCount" (Decode.float)
         |> required "updated" (Decode.string)
         |> required "created" (Decode.string)
+
+parseDate : String -> String
+parseDate tradeDate =
+    let date =
+        case Date.fromString tradeDate of
+            Ok d -> format "%Y%m%d" d
+            Err e -> ""
+    in date
 
 sendRequest : String -> Cmd Msg
 sendRequest query = Http.send NewPriceData (getPriceData query)
