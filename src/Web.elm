@@ -15,26 +15,39 @@ view model = div []
         , input [ placeholder "請輸入蔬果名", onInput ChangeSearchInput ] []
         , button [ onClick ClickSearch ] [ text "搜索" ]
         , div [ style [( "width", "800px" ), ( "display", "flex" ), ( "flex-wrap", "wrap" )]]
-            [ row [ "交易日期", "作物名稱", "市場名稱", "平均價" ]
+            [ row [ "交易日期", "作物名稱", "市場名稱", "平均價" ] Nothing
             , div [] (content model.data)
             ]
         ]
 
-row : List String -> Html Msg
-row titles =
-    div [style [("width", "800px"), ("display", "flex")]]
-        (List.map (\title -> div [style [("flex", "1")]] [text title]) titles)
+row : List String -> Maybe Int -> Html Msg
+row titles index =
+    let
+        index_ = Maybe.withDefault 0 index
+    in
+        div [style [("width", "800px"), ("display", "flex"), getBGColor index_]]
+            (List.map (\title -> div [style [("flex", "1")]] [text title]) titles)
 
 content : PriceData -> List (Html Msg)
 content priceData = 
     if (List.length priceData) == 0 then
-        (List.singleton empty)
+        (List.singleton emptyView)
     else
-        List.map (\info -> row [info.tradeDate, info.cropName, info.marketName, toString (round (info.avgPrice * 0.6))]) priceData
+        let dataWithIndex = List.indexedMap (,) priceData
+        in List.map (\(index, info) ->
+            let titles = [info.tradeDate, info.cropName, info.marketName, toString (round (info.avgPrice * 0.6))]
+            in row titles (Just index)
+            ) dataWithIndex
 
-empty : Html Msg
-empty = div [] [text "查無資料"]
 
+emptyView : Html Msg
+emptyView = div [] [text "查無資料"]
+
+getBGColor : Int -> (String, String)
+getBGColor index =
+    if (index % 2) == 0
+    then ("background-color", "white")
+    else ("background-color", "#81dde8")
 
 main : Program Never Model Msg
 main = program
