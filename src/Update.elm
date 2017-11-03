@@ -52,7 +52,7 @@ parseDate : String -> String
 parseDate tradeDate =
     let date =
         case Date.fromString tradeDate of
-            Ok d -> format "%Y%m%d" d
+            Ok d -> format "%Y/%m/%d" d
             Err e -> ""
     in date
 
