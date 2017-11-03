@@ -16,7 +16,7 @@ view model = div []
         , button [ onClick ClickSearch ] [ text "搜索" ]
         , div [ style [( "width", "800px" ), ( "display", "flex" ), ( "flex-wrap", "wrap" )]]
             [ row [ "交易日期", "作物名稱", "市場名稱", "平均價" ] Nothing
-            , div [] (content model.data)
+            , div [] (contentView model)
             ]
         ]
 
@@ -28,17 +28,18 @@ row titles index =
         div [style [("width", "800px"), ("display", "flex"), getBGColor index_]]
             (List.map (\title -> div [style [("flex", "1")]] [text title]) titles)
 
-content : PriceData -> List (Html Msg)
-content priceData = 
-    if (List.length priceData) == 0 then
-        (List.singleton emptyView)
-    else
-        let dataWithIndex = List.indexedMap (,) priceData
-        in List.map (\(index, info) ->
-            let titles = [info.tradeDate, info.cropName, info.marketName, toString (round (info.avgPrice * 0.6))]
-            in row titles (Just index)
-            ) dataWithIndex
-
+contentView : Model -> List (Html Msg)
+contentView model = 
+    case List.length model.data of
+        0 -> if model.searched 
+            then List.singleton emptyView
+            else []
+        _ ->
+            List.indexedMap (,) model.data
+            |>  List.map (\(index, info) ->
+                    let titles = [info.tradeDate, info.cropName, info.marketName, toString (round (info.avgPrice * 0.6))]
+                    in row titles (Just index)
+                    )
 
 emptyView : Html Msg
 emptyView = div [] [text "查無資料"]

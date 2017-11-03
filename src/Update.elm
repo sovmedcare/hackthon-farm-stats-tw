@@ -15,7 +15,7 @@ update msg model =
     case msg of
         NoOp -> ( model, Cmd.none )
         ChangeSearchInput s -> ( { model | searchInput = s }, Cmd.none )
-        ClickSearch -> ( model, sendRequest model.searchInput )
+        ClickSearch -> ( { model | searched = True }, sendRequest model.searchInput )
         NewPriceData (Ok data) -> ( { model | data = data.docs }, Cmd.none )
         NewPriceData (Err _) -> ( model, Cmd.none )
 
