@@ -15,8 +15,8 @@ update msg model =
     case msg of
         NoOp -> ( model, Cmd.none )
         ChangeSearchInput s -> ( { model | searchInput = s }, Cmd.none )
-        ClickSearch -> ( model, sendRequest model.searchInput )
-        NewPriceData (Ok data) -> ( { model | data = data.docs }, Cmd.none )
+        ClickSearch -> ( { model | loading = True }, sendRequest model.searchInput )
+        NewPriceData (Ok data) -> ( { model | data = data.docs, loading = False }, Cmd.none )
         NewPriceData (Err _) -> ( model, Cmd.none )
 
 getPriceData : String -> Http.Request Response
