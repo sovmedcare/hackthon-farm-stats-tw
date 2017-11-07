@@ -7,7 +7,6 @@
 ```js
 git clone https://github.com/sovmedcare/hackthon-farm-stats-tw
 yarn install
-elm-package install
 ```
 
 ## Development
@@ -17,22 +16,28 @@ elm-package install
 yarn watch
 // for running bundle on mobile simulator
 yarn start
+// for running web
+elm-reactor
 ```
 
 ## 過程中可能會發生的問題
 
-Q: elm-native-ui 無法安裝？
+Q: 重新 elm-package install 發生錯誤？
 A: 因為 elm-native-ui 不在 elm index 中, 所以必須另外安裝
 
-  1. 先移除 elm-package.json 的 elm-native-ui
-  1. 在上層資料夾 ```git clone https://github.com/ohanhi/elm-native-ui```
-  1. 利用 https://github.com/NoRedInk/elm-ops-tooling#elm_self_publish
-     ```python path/to/elm_self_publish.py ./elm-native-ui ./MyAppName```
-     把 elm-native-ui module 搬進去
+  at current DIR
+  1. remove elm-staff
+  1. remove line of elm-native-ui in ```elm-package.json```
+  1. elm-package install
 
-Q: Xcode 出現 compile error
+  at parent DIR
+  1. git clone https://github.com/ohanhi/elm-native-ui
+  1. git clone https://github.com/NoRedInk/elm-ops-tooling
+  1. ```python elm-ops-tooling/elm_self_publish.py ./elm-native-ui ./hackthon-farm-stats-tw```
+
+Q: Xcode 出現 compile error (React/RCTBridge.h)
 A: Product -> Scheme -> Manage Scheme -> Debug -> Build
 
-   1. uncheck Parallelize Build
-   1. 點 "+" -> Add React
-   1. move React to the top
+  1. uncheck Parallelize Build
+  1. click "+" -> Add React
+  1. move React to the top order
