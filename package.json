@@ -1,7 +1,7 @@
 {
-  "name": "tw-farm-transaction",
-  "version": "0.0.1",
-  "private": true,
+  "name": "hackthon-farm-stats-tw",
+  "version": "1.0.0",
+  "private": false,
   "license": "MIT",
   "scripts": {
     "watch": "chokidar '**/*.elm' 'app/**/*.js' -c 'elm make src/Mobile.elm --output elm.js' --initial",
