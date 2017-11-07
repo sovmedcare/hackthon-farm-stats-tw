@@ -1,4 +1,4 @@
-package com.thoughtbot.purpletrain;
+package com.sovmedcare.farm_stats_tw;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "PurpleTrain";
+        return "FarmStatsTW";
     }
 }

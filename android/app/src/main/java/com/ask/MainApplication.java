@@ -1,4 +1,4 @@
-package com.thoughtbot.purpletrain;
+package com.sovmedcare.farm_stats_tw;
 
 import android.app.Application;
 import android.util.Log;

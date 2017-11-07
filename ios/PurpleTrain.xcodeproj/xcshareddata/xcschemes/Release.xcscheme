@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "PurpleTrain.app"
-               BlueprintName = "PurpleTrain"
-               ReferencedContainer = "container:PurpleTrain.xcodeproj">
+               BuildableName = "FarmStatsTW.app"
+               BlueprintName = "FarmStatsTW"
+               ReferencedContainer = "container:FarmStatsTW.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "PurpleTrainTests.xctest"
-               BlueprintName = "PurpleTrainTests"
-               ReferencedContainer = "container:PurpleTrain.xcodeproj">
+               BuildableName = "FarmStatsTWTests.xctest"
+               BlueprintName = "FarmStatsTWTests"
+               ReferencedContainer = "container:FarmStatsTW.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -48,9 +48,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "PurpleTrainTests.xctest"
-               BlueprintName = "PurpleTrainTests"
-               ReferencedContainer = "container:PurpleTrain.xcodeproj">
+               BuildableName = "FarmStatsTWTests.xctest"
+               BlueprintName = "FarmStatsTWTests"
+               ReferencedContainer = "container:FarmStatsTW.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -58,9 +58,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "PurpleTrain.app"
-            BlueprintName = "PurpleTrain"
-            ReferencedContainer = "container:PurpleTrain.xcodeproj">
+            BuildableName = "FarmStatsTW.app"
+            BlueprintName = "FarmStatsTW"
+            ReferencedContainer = "container:FarmStatsTW.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -82,9 +82,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "PurpleTrain.app"
-            BlueprintName = "PurpleTrain"
-            ReferencedContainer = "container:PurpleTrain.xcodeproj">
+            BuildableName = "FarmStatsTW.app"
+            BlueprintName = "FarmStatsTW"
+            ReferencedContainer = "container:FarmStatsTW.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -101,9 +101,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "PurpleTrain.app"
-            BlueprintName = "PurpleTrain"
-            ReferencedContainer = "container:PurpleTrain.xcodeproj">
+            BuildableName = "FarmStatsTW.app"
+            BlueprintName = "FarmStatsTW"
+            ReferencedContainer = "container:FarmStatsTW.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

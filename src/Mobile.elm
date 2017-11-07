@@ -55,7 +55,7 @@ view model =
           , onChangeText ChangeSearchInput
         ]
         [
-          case model.searched of
+          case model.loading of
             True -> text [] [ Ui.string "搜索中 ..." ]
             False -> Elements.view [] [table model.data ] 
         ]
