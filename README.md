@@ -1,6 +1,12 @@
-# Farm Stats TW (台灣果菜市場價格查詢)
+# SOV黑客松 #1 : Farm Stats TW (台灣果菜市場價格查詢)
 
 利用 elm, elm-native-ui (react-native) 製作台灣果菜市場價格查詢
+
+### iOS preview
+![](https://i.imgur.com/E2SdXxS.png)
+
+### web preview
+![](https://i.imgur.com/gHprryW.png)
 
 ## Setup
 
@@ -41,9 +47,3 @@ A: Product -> Scheme -> Manage Scheme -> Debug -> Build
   1. uncheck Parallelize Build
   1. click "+" -> Add React
   1. move React to the top order
-
-### iOS preview
-![](https://i.imgur.com/0jpagTg.png)
-
-### web preview
-![](https://i.imgur.com/E2SdXxS.png)
